@@ -34,7 +34,7 @@ public class OyunEkrani extends JPanel {
     private boolean gidilen_bolgeler[][] = new boolean[10][10];
 
     public OyunEkrani() {
-        bitmeyen_oyun();
+
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 gidilen_bolgeler[i][j] = false;
@@ -210,11 +210,10 @@ public class OyunEkrani extends JPanel {
 
     public void bitmeyen_oyun() {
         try {
-            AudioInputStream stream = AudioSystem.getAudioInputStream(new File("src/Gui/oyun_bitmemistir.mp3 "));
+            AudioInputStream stream = AudioSystem.getAudioInputStream(new File("src/Gui/oyun_bitmemistir .wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(stream);
             clip.start();
-
         } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

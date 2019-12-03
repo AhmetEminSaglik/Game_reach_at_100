@@ -4,6 +4,15 @@ import Logic.Actions;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +22,7 @@ import javax.swing.JRadioButton;
 
 public class BaslangicEkranGui extends JLayeredPane {
 
+    public Clip clip = null;
     JFrame jf_beg = null; //  --> BaslangicEkraniGui  (..._beg) 
     JLabel jl = null;
     JRadioButton[] jrb = new JRadioButton[6];
@@ -26,6 +36,8 @@ public class BaslangicEkranGui extends JLayeredPane {
     private int JFrame_baslangic_yukseklik = 600;
 
     public BaslangicEkranGui() {
+        OyunEkrani oe = new OyunEkrani();
+        baslangic_muzigi();
         this.setLayout(null);/* jpanel'i extends ettiğimizden  (burayı) this kullandık  
         
          */
@@ -44,6 +56,7 @@ public class BaslangicEkranGui extends JLayeredPane {
         action.setBeg(this);
 
         getJf_beg().setVisible(true);
+
     }
 
     public JLabel getJl() {
@@ -163,4 +176,19 @@ public class BaslangicEkranGui extends JLayeredPane {
         this.JFrame_baslangic_yukseklik = JFrame_baslangic_yukseklik;
     }
 
+    public void baslangic_muzigi() {
+        try {
+            AudioInputStream stream = AudioSystem.getAudioInputStream(new File("src/Gui/baslangic_muzigi.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(stream);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
