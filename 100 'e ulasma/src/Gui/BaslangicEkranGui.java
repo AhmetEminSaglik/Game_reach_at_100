@@ -28,11 +28,12 @@ public class BaslangicEkranGui extends JLayeredPane {
     JRadioButton[] jrb = new JRadioButton[6];
     int degerler;
     JButton basla = null;
+    JButton cikis = null;
     ButtonGroup group = new ButtonGroup();
     Actions action = new Actions();
     private int JFrame_baslangic_x = 50;
     private int JFrame_baslangic_y = 100;
-    private int JFrame_baslangic_uzunluk = 800;
+    private int JFrame_baslangic_uzunluk = 500;
     private int JFrame_baslangic_yukseklik = 600;
 
     public BaslangicEkranGui() {
@@ -43,13 +44,16 @@ public class BaslangicEkranGui extends JLayeredPane {
          */
 
         this.add(getBasla());
+        this.add(getCikis());
 
         this.add(getJl());
         for (int i = 0; i < 6; i++) {
             setDegerler(i);
             group.add(getJrb()[getDegerler()]);
-            getJrb()[getDegerler()].setCursor(new Cursor(3));
+            getJrb()[getDegerler()].setCursor(new Cursor(12));
             getJrb()[getDegerler()].setToolTipText((int) Math.pow((getDegerler() + 5), 2) + " adet kare hazırlanılacak");
+            getJrb()[getDegerler()].setBackground(Color.BLUE);
+            getJrb()[getDegerler()].setForeground(Color.white);
             this.add(getJrb()[getDegerler()]);
 
         }
@@ -61,12 +65,12 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public JLabel getJl() {
         if (jl == null) {
-            jl = new JLabel("Aşağıdaki seçeneklerden birisini seçip oyuna başlayabilirsiniz ... ");
-            jl.setForeground(Color.white);
-            jl.setBounds(50, 70, 800, 30);
+            jl = new JLabel("Başlamak İçin Oyun Boyutunu Seçiniz");
+            jl.setForeground(Color.GRAY);
+            jl.setBounds(70, 70, 350, 30);
             Font font = new Font("monospaced", Font.BOLD, 17); // bu classın sadece en sağdakini yazının pixeli olduğunu biliyorum
             jl.setFont(font);
-            jl.setForeground(Color.red);
+
         }
         return jl;
     }
@@ -79,9 +83,9 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JRadioButton[] getJrb() {
         if (jrb[getDegerler()] == null) {
             Font font = new Font("monospaced", Font.BOLD, 13); // bu classın sadece en sağdakini yazının pixeli olduğunu biliyorum
-            jrb[getDegerler()] = new JRadioButton((getDegerler() + 5) + " - " + (getDegerler() + 5) + " Hedef :  " + (getDegerler() + 5) * (5 + getDegerler()));
+            jrb[getDegerler()] = new JRadioButton((getDegerler() + 5) + " x " + (getDegerler() + 5) + " Bölümü Oyna");
             jrb[getDegerler()].setFont(font);
-            jrb[getDegerler()].setBounds(150, 175 + getDegerler() * 50, 200, 30);
+            jrb[getDegerler()].setBounds(150, 125 + getDegerler() * 50, 200, 30);
             jrb[getDegerler()].setSelected(false);
             jrb[getDegerler()].setFocusable(false);
             jrb[getDegerler()].addActionListener(action);
@@ -106,8 +110,8 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JButton getBasla() {
         if (basla == null) {
             basla = new JButton("Başla");
-            basla.setBounds(450, 425, 90, 40);
-            basla.setBackground(Color.red);
+            basla.setBounds(150, 450, 90, 40);
+            basla.setBackground(Color.gray);
             basla.setForeground(Color.WHITE);
             Font font = new Font("", Font.BOLD, 15);
             basla.setFont(font);
@@ -125,9 +129,30 @@ public class BaslangicEkranGui extends JLayeredPane {
         this.basla = basla;
     }
 
+    public JButton getCikis() {
+        if (cikis == null) {
+            cikis = new JButton("Çıkış");
+            cikis.setBounds(260, 450, 90, 40);
+            cikis.setBackground(Color.white);
+            cikis.setForeground(Color.gray);
+            //cikis.setBackground(Color.white);
+            Font font = new Font("", Font.BOLD, 15);
+            cikis.setFont(font);
+            cikis.setCursor(new Cursor(12));
+            //cikis.setFocusPainted(false);
+            cikis.setFocusable(false);
+            cikis.addActionListener(action);
+        }
+        return cikis;
+    }
+
+    public void setCikis(JButton cikis) {
+        this.cikis = cikis;
+    }
+
     public JFrame getJf_beg() {
         if (jf_beg == null) {
-            jf_beg = new JFrame("100'e ulaşma oyunu ");
+            jf_beg = new JFrame("BirDenYüze");
             jf_beg.setSize(JFrame_baslangic_uzunluk, JFrame_baslangic_yukseklik);
             jf_beg.setLocation(JFrame_baslangic_x, JFrame_baslangic_y);
             jf_beg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
