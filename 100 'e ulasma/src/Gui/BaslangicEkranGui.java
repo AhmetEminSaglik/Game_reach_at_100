@@ -120,6 +120,7 @@ public class BaslangicEkranGui extends JLayeredPane {
             //basla. // butona basınca arka ekran beyaz oluyor onu kaldırma kodunu eklicem buraya 
             basla.setFocusable(false);
             basla.addActionListener(action);
+
         }
         return basla;
 

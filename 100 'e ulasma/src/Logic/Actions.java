@@ -1,6 +1,7 @@
 package Logic;
 
 import Gui.BaslangicEkranGui;
+import Gui.Gecen_Sure;
 import Gui.OyunEkrani;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ public class Actions implements ActionListener {
     int deger = 0;
     boolean baslangic_ekrani_calismaya_devam_ediyor = true;
     OyunEkrani oe = new OyunEkrani();
-
+    Gecen_Sure gecen_sure = null;
     private int adim_sayisi = 0, satir = 0, sutun = 0;
     boolean kuzey = false, kuzey_dogu = false,
             dogu = false,
@@ -29,12 +30,12 @@ public class Actions implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (beg != null) {
-            //  getBeg().clip.loop(Clip.LOOP_CONTINUOUSLY);
+
             if (baslangic_ekrani_calismaya_devam_ediyor) {
                 for (int i = 0; i < 6; i++) {
                     if (e.getSource() == getBeg().getJrb()[i]) {
                         deger = i + 5;
-// diğer class'a bu degeri gönderecem
+
                         getBeg().getJl().setForeground(Color.WHITE);
                         getBeg().getJl().setText("Artık Oyuna Başlamaya Hazırsınız");
                         getBeg().getJl().setBounds(85, 70, 350, 30);
@@ -51,6 +52,7 @@ public class Actions implements ActionListener {
                     } else {
                         if (getBeg().clip.isRunning()) {
                             getBeg().clip.stop();
+                            getOe().Oyun_ici_music_cal();
                         }
                         baslangic_ekrani_calismaya_devam_ediyor = false;
                         getBeg().getJf_beg().setVisible(false);
@@ -94,6 +96,9 @@ public class Actions implements ActionListener {
                                 jframe_genisliyor = false;
                             }
                         }
+                        getGecen_sure();
+
+                        //  getOe().Oyun_ici_music_cal();
                         getOe().oyunu_getir();
 
                     }
@@ -111,7 +116,8 @@ public class Actions implements ActionListener {
         } else {
             for (int i = 0; i < getOe().getSatir(); i++) {
                 for (int j = 0; j < getOe().getSutun(); j++) {
-                    if (getOe().getButtonlar()[i][j].getBackground() == Color.ORANGE) {
+                    if (getOe().getButtonlar()[i][j].getBackground() == Color.ORANGE
+                            || getOe().getButtonlar()[i][j].getBackground() == Color.BLUE) {
                         getOe().getButtonlar()[i][j].setBackground(Color.BLACK);
                     }
                 }
@@ -122,14 +128,13 @@ public class Actions implements ActionListener {
 
                     if (e.getSource() == getOe().getButtonlar()[i][j]) {
 
-                        System.out.println(i + " - " + j);
                         if (getOe().isIlk_giris()) {
                             setAdim_sayisi(1);
                             setSatir(i);
                             setSutun(j);
-                            System.out.println("i : " + i + " j : " + j);
+
                             getOe().setIlk_giris(false);
-                            getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
+
                             if (ilerlenebilecek_yonler());
                             {
                             }
@@ -140,30 +145,30 @@ public class Actions implements ActionListener {
 
                             if (getOe().getButtonlar()[i][j].getBackground() == Color.GREEN) {
 
-                                System.out.println("siyaha boyama");
                                 //   yonleri_boya(Color.BLACK);
                                 yonleri_temizle();
                                 setSatir(i);
                                 setSutun(j);
                                 gidilen_bolge();
                                 setAdim_sayisi(getAdim_sayisi() + 1);
-                                getOe().getButtonlar()[getSatir()][getSutun()].setText(Integer.toString(getAdim_sayisi()));
-                                if (!ilerlenebilecek_yonler()) {
 
+                                if (!ilerlenebilecek_yonler()) {
+                                    if (getOe().oyun_ici_music_clip.isRunning()) {
+                                        getOe().oyun_ici_music_clip.stop();
+                                    }
                                     if (getAdim_sayisi() == getOe().getSatir() * getOe().getSatir()) {
                                         getOe().Alkisla();
                                     } else {
 
                                         getOe().bitmeyen_oyun();
-
+                                        JOptionPane.showMessageDialog(null, "Gidilecek yolunuz kalmamıştır. \n" + getOe().getKronometre().getText() + "\nSkorunuz : " + getAdim_sayisi());
                                     }
-                                    JOptionPane.showMessageDialog(null, "Gidilecek yolunuz kalmamıştır. Skorunuz : " + getAdim_sayisi());
                                     getOe().getJf_oe().setVisible(false);
                                     BaslangicEkranGui bg = new BaslangicEkranGui();
 
                                     return;
                                 }
-                                System.out.println("yeşile boyama");
+
                                 yonleri_boya(Color.GREEN);
 
                             } else {
@@ -171,11 +176,25 @@ public class Actions implements ActionListener {
                                 getOe().getButtonlar()[i][j].setBackground(Color.ORANGE);
                             }
                         }
-
+                        getOe().getButtonlar()[getSatir()][getSutun()].setBackground(Color.blue);
+                        getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
+                        getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
                     }
+
                 }
             }
 
+            if (e.getSource() == getOe().getAna_menu()) {
+
+                int cevap = JOptionPane.showConfirmDialog(null, "Oyunuz kaydedilmeyecektir çıkmak istediğinize emin misiniz ? ", " UYARI ", 0, 2);
+
+                if (cevap == 0) {
+                    getOe().getJf_oe().setVisible(false);
+                    BaslangicEkranGui bg = new BaslangicEkranGui();
+                } else {
+
+                }
+            }
         }
 
     }
@@ -217,26 +236,21 @@ public class Actions implements ActionListener {
             kac_tane_yon_var++;
         }
 
-        System.out.println(kuzey);
-
         if (getSutun() + 3 < getOe().getSutun() && !bolge_gidilmismi_kontrolu(getSatir(), getSutun() + 3)) {
 
             dogu = true;
             kac_tane_yon_var++;
         }
-        System.out.println(dogu);
 
         if (getSatir() - 3 >= 0 && !bolge_gidilmismi_kontrolu(getSatir() - 3, getSutun())) {
             guney = true;
             kac_tane_yon_var++;
         }
-        System.out.println(guney);
 
         if (getSutun() - 3 >= 0 && !bolge_gidilmismi_kontrolu(getSatir(), getSutun() - 3)) {
             bati = true;
             kac_tane_yon_var++;
         }
-        System.out.println(bati);
 
         if (getSatir() + 2 < getOe().getSatir()) {
 
@@ -251,8 +265,6 @@ public class Actions implements ActionListener {
             }
 
         }
-        System.out.println(kuzey_dogu);
-        System.out.println(kuzey_bati);
 
         if (getSatir() - 2 >= 0) {
 
@@ -275,11 +287,7 @@ public class Actions implements ActionListener {
 
     public void yonleri_boya(Color color) {
         if (kuzey) {
-//            JOptionPane.showMessageDialog(null, "getSatir : " + getSatir() + "------geosatir " + getOe().getSatir());
 
-            System.out.println();
-            //   System.out.println("getSatir +3 : " + (getSatir() + 3));
-            //  JOptionPane.showMessageDialog(null, "getSatir : " + getSatir() + "   --- getsatir+üç : " + (getSatir() + 3));
             getOe().getButtonlar()[getSatir() + 3][getSutun()].setBackground(color);
         }
         if (kuzey_dogu) {
@@ -349,6 +357,18 @@ public class Actions implements ActionListener {
 
     public void setSutun(int sutun) {
         this.sutun = sutun;
+    }
+
+    public Gecen_Sure getGecen_sure() {
+        if (gecen_sure == null) {
+            gecen_sure = new Gecen_Sure(this);
+        }
+
+        return gecen_sure;
+    }
+
+    public void setGecen_sure(Gecen_Sure gecen_sure) {
+        this.gecen_sure = gecen_sure;
     }
 
 }
