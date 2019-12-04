@@ -53,6 +53,7 @@ public class Actions implements ActionListener {
                         if (getBeg().clip.isRunning()) {
                             getBeg().clip.stop();
                             getOe().Oyun_ici_music_cal();
+
                         }
                         baslangic_ekrani_calismaya_devam_ediyor = false;
                         getBeg().getJf_beg().setVisible(false);
@@ -96,10 +97,11 @@ public class Actions implements ActionListener {
                                 jframe_genisliyor = false;
                             }
                         }
-                        getGecen_sure();
 
                         //  getOe().Oyun_ici_music_cal();
                         getOe().oyunu_getir();
+
+                        System.out.println("gecen süre : " + getGecen_sure());
 
                     }
                 }
@@ -114,6 +116,7 @@ public class Actions implements ActionListener {
                 // 0=yes, 1=no, 2=cancel
             }
         } else {
+            getGecen_sure().sureyi_baslat();
             for (int i = 0; i < getOe().getSatir(); i++) {
                 for (int j = 0; j < getOe().getSutun(); j++) {
                     if (getOe().getButtonlar()[i][j].getBackground() == Color.ORANGE
@@ -140,7 +143,7 @@ public class Actions implements ActionListener {
                             }
                             gidilen_bolge();
                             yonleri_boya(Color.GREEN);
-
+                            getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
                         } else {
 
                             if (getOe().getButtonlar()[i][j].getBackground() == Color.GREEN) {
@@ -151,7 +154,7 @@ public class Actions implements ActionListener {
                                 setSutun(j);
                                 gidilen_bolge();
                                 setAdim_sayisi(getAdim_sayisi() + 1);
-
+                                getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
                                 if (!ilerlenebilecek_yonler()) {
                                     if (getOe().oyun_ici_music_clip.isRunning()) {
                                         getOe().oyun_ici_music_clip.stop();
@@ -178,7 +181,7 @@ public class Actions implements ActionListener {
                         }
                         getOe().getButtonlar()[getSatir()][getSutun()].setBackground(Color.blue);
                         getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
-                        getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
+
                     }
 
                 }
@@ -186,13 +189,17 @@ public class Actions implements ActionListener {
 
             if (e.getSource() == getOe().getAna_menu()) {
 
-                int cevap = JOptionPane.showConfirmDialog(null, "Oyunuz kaydedilmeyecektir çıkmak istediğinize emin misiniz ? ", " UYARI ", 0, 2);
+                getGecen_sure().sureyi_durdur();
+                int cevap = JOptionPane.showConfirmDialog(null, "Oyununuz kaydedilmeyecektir çıkmak istediğinize emin misiniz ? ", " UYARI ", 0, 2);
 
                 if (cevap == 0) {
+                    if (getOe().oyun_ici_music_clip.isRunning()) {
+                        getOe().oyun_ici_music_clip.stop();
+                    }
                     getOe().getJf_oe().setVisible(false);
                     BaslangicEkranGui bg = new BaslangicEkranGui();
                 } else {
-
+                    getGecen_sure().sureyi_baslat();
                 }
             }
         }

@@ -34,8 +34,15 @@ public class Gecen_Sure {
             }
 
         });
-        timer.start();
 
+    }
+
+    public void sureyi_baslat() {
+        timer.start();
+    }
+
+    public void sureyi_durdur() {
+        timer.stop();
     }
 
 }

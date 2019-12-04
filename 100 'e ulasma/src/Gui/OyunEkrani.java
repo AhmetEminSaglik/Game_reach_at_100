@@ -41,6 +41,7 @@ public class OyunEkrani extends JPanel {
     JTextField jtextfield_skor = null;
 
     public Clip oyun_ici_music_clip = null;
+    Gecen_Sure gecen_sure = null; // buna bir bak 
 
     public OyunEkrani() {
 
@@ -74,6 +75,7 @@ public class OyunEkrani extends JPanel {
 
     public void oyunu_getir() {
 
+        //    getGecen_sure().sureyi_baslat();
         setBackground(Color.BLACK);
         for (int i = getSatir() - 1; i >= 0; i--) {
             setSayac_i(i);
@@ -224,6 +226,7 @@ public class OyunEkrani extends JPanel {
             oyun_ici_music_clip.open(stream);
             oyun_ici_music_clip.start();
             oyun_ici_music_clip.loop(Clip.LOOP_CONTINUOUSLY);
+
         } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -300,5 +303,16 @@ public class OyunEkrani extends JPanel {
     public void setAna_menu(JButton Ana_menu) {
         this.Ana_menu = Ana_menu;
     }
+    /*
+    public Gecen_Sure getGecen_sure() {
+        if (gecen_sure == null) {
+            gecen_sure = new Gecen_Sure(getAction());
+        }
+        return gecen_sure;
+    }
+
+    public void setGecen_sure(Gecen_Sure gecen_sure) {
+        this.gecen_sure = gecen_sure;
+    }*/
 
 }
