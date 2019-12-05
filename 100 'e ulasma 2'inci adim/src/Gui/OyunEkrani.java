@@ -4,6 +4,7 @@ import Logic.Actions;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Paint;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -37,12 +38,13 @@ public class OyunEkrani extends JPanel {
     public int height_btn = 50;
     public int sagdaki_secenekler_x_ekseni = 1116;
     public int sagadaki_secenekler_y_ekseni = 235;
-    public int sagdaki_secenekler_y_ekseni_kere_kullanıldı = 1;
+    public int sagdaki_secenekler_y_ekseni_kere_kullanıldı = 0;
     JTextField kronometre = null;
     JTextField jtextfield_skor = null;
-
+    JButton sıfırla = null;
     public Clip oyun_ici_music_clip = null;
     Gecen_Sure gecen_sure = null; // buna bir bak 
+    JButton geri_adim_at = null;
 
     public OyunEkrani() {
 
@@ -53,25 +55,6 @@ public class OyunEkrani extends JPanel {
         }
         this.setLayout(null);
 
-    }
-
-    public JFrame getJf_oe() {
-        if (jf_oe == null) {
-            jf_oe = new JFrame();
-            jf_oe.setBackground(Color.BLACK);
-            jf_oe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            jf_oe.setBounds(0, 0, width, height);
-
-            jf_oe.setResizable(false);
-            jf_oe.setLocationRelativeTo(null);
-            jf_oe.setLayout(null);
-
-        }
-        return jf_oe;
-    }
-
-    public void setJf_oe(JFrame jf_oe) {
-        this.jf_oe = jf_oe;
     }
 
     public void oyunu_getir() {
@@ -105,12 +88,35 @@ public class OyunEkrani extends JPanel {
         }
 
         getJf_oe().add(this);
+        this.add(getKronometre());
         this.setLayout(null);
         this.add(getAna_menu());
-        getAna_menu().addActionListener(action);
+        this.add(getSıfırla());
         this.add(getJtextfield_skor());
-        this.add(getKronometre());
+        this.add(getGeri_adim_at());
+        getGeri_adim_at().addActionListener(action);
+        getAna_menu().addActionListener(action);
+        getSıfırla().addActionListener(action);
 
+    }
+
+    public JFrame getJf_oe() {
+        if (jf_oe == null) {
+            jf_oe = new JFrame();
+            jf_oe.setBackground(Color.BLACK);
+            jf_oe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jf_oe.setBounds(0, 0, width, height);
+
+            jf_oe.setResizable(false);
+            jf_oe.setLocationRelativeTo(null);
+            jf_oe.setLayout(null);
+
+        }
+        return jf_oe;
+    }
+
+    public void setJf_oe(JFrame jf_oe) {
+        this.jf_oe = jf_oe;
     }
 
     public int getSatir() {
@@ -260,8 +266,10 @@ public class OyunEkrani extends JPanel {
             kronometre = new JTextField(" Geçen Süre : 00:00:00 ");
             kronometre.setBounds(520 - (50 * (getSatir() - 5)) + (width_btn * (getSatir() - 5)) / 2,
                     50 + ((10 - getSatir()) * 30), 300, 50);
-            kronometre.setBackground(Color.BLUE);
+            kronometre.setBackground(Color.BLACK);
             kronometre.setForeground(Color.WHITE);
+            kronometre.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5));
+            //   getButtonlar()[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 4));
             kronometre.setEditable(false);
             kronometre.setFont(new Font("monospaced", Font.BOLD, 20));
         }
@@ -275,6 +283,7 @@ public class OyunEkrani extends JPanel {
     public JTextField getJtextfield_skor() {
         if (jtextfield_skor == null) {
             jtextfield_skor = new JTextField("SKOR :   ");
+            System.out.println("sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı) : " + (sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı)));
             jtextfield_skor.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (sagdaki_secenekler_y_ekseni_kere_kullanıldı + 2), 200, 50);
             jtextfield_skor.setFocusable(false);
             jtextfield_skor.setBackground(Color.WHITE);
@@ -294,7 +303,7 @@ public class OyunEkrani extends JPanel {
         if (Ana_menu == null) {
             Ana_menu = new JButton("ANA MENÜYE DÖN");
             Ana_menu.setBackground(Color.WHITE);
-            Ana_menu.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * sagdaki_secenekler_y_ekseni_kere_kullanıldı, 200, 50);
+            Ana_menu.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı), 200, 50);
             Ana_menu.setCursor(new Cursor(12));
             Ana_menu.setFocusable(false);
             sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
@@ -307,6 +316,42 @@ public class OyunEkrani extends JPanel {
 
     public void setAna_menu(JButton Ana_menu) {
         this.Ana_menu = Ana_menu;
+    }
+
+    public JButton getSıfırla() {
+        if (sıfırla == null) {
+            sıfırla = new JButton();
+            sıfırla = new JButton("Sıfırla");
+            sıfırla.setBackground(Color.WHITE);
+            sıfırla.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı), 200, 50);
+            sıfırla.setCursor(new Cursor(12));
+            sıfırla.setFocusable(false);
+            sıfırla.setFont(new Font("", Font.BOLD, 15));
+            sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
+        }
+        return sıfırla;
+    }
+
+    public void setSıfırla(JButton sıfırla) {
+        this.sıfırla = sıfırla;
+    }
+
+    public JButton getGeri_adim_at() {
+        if (geri_adim_at == null) {
+            geri_adim_at = new JButton();
+            geri_adim_at = new JButton("GERİ ADIM AT");
+            geri_adim_at.setBackground(Color.WHITE);
+            geri_adim_at.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı), 200, 50);
+            geri_adim_at.setCursor(new Cursor(12));
+            geri_adim_at.setFocusable(false);
+            geri_adim_at.setFont(new Font("", Font.BOLD, 15));
+            sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
+        }
+        return geri_adim_at;
+    }
+
+    public void setGeri_adim_at(JButton geri_adim_at) {
+        this.geri_adim_at = geri_adim_at;
     }
 
 }
