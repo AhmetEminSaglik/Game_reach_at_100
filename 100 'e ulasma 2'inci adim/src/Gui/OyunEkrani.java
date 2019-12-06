@@ -91,9 +91,9 @@ public class OyunEkrani extends JPanel {
         this.add(getKronometre());
         this.setLayout(null);
         this.add(getAna_menu());
-        this.add(getSıfırla());
         this.add(getJtextfield_skor());
         this.add(getGeri_adim_at());
+        this.add(getSıfırla());
         getGeri_adim_at().addActionListener(action);
         getAna_menu().addActionListener(action);
         getSıfırla().addActionListener(action);
@@ -283,14 +283,12 @@ public class OyunEkrani extends JPanel {
     public JTextField getJtextfield_skor() {
         if (jtextfield_skor == null) {
             jtextfield_skor = new JTextField("SKOR :   ");
-            System.out.println("sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı) : " + (sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı)));
-            jtextfield_skor.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (sagdaki_secenekler_y_ekseni_kere_kullanıldı + 2), 200, 50);
+            jtextfield_skor.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (sagdaki_secenekler_y_ekseni_kere_kullanıldı * 2), 200, 50);
             jtextfield_skor.setFocusable(false);
             jtextfield_skor.setBackground(Color.WHITE);
             jtextfield_skor.setEditable(false);
             sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
             jtextfield_skor.setFont(new Font("monospaced", Font.BOLD, 25));
-
         }
         return jtextfield_skor;
     }
@@ -321,7 +319,7 @@ public class OyunEkrani extends JPanel {
     public JButton getSıfırla() {
         if (sıfırla == null) {
             sıfırla = new JButton();
-            sıfırla = new JButton("Sıfırla");
+            sıfırla = new JButton("SIFIRLA");
             sıfırla.setBackground(Color.WHITE);
             sıfırla.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (2 * sagdaki_secenekler_y_ekseni_kere_kullanıldı), 200, 50);
             sıfırla.setCursor(new Cursor(12));
