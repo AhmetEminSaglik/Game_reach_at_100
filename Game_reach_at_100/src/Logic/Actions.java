@@ -3,12 +3,14 @@ package Logic;
 import Gui.BaslangicEkranGui;
 import Gui.Gecen_Sure;
 import Gui.OyunEkrani;
-import com.sun.scenario.Settings;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Actions implements ActionListener {
@@ -29,7 +31,7 @@ public class Actions implements ActionListener {
             kuzey_bati = false;
     Color anlık_renk = Color.BLUE;
     Color gidilebilecek_renk = Color.WHITE;
-
+    boolean music_acik_kontrol = true;
     final int adim_i = 0;
     final int adim_j = 0;
 
@@ -131,7 +133,30 @@ public class Actions implements ActionListener {
                     }
                 }
             }
+//if(getOe().getJf_ayarlar()get)
+            if (e.getSource() == getOe().getAyarlar()) {
+                getOe().getJf_ayarlar().setVisible(true);
 
+            }
+            if (e.getSource() == getOe().getMusic_ac_kapat()) {
+                if (music_acik_kontrol) {
+                    Icon music_off = getOe().music_off;
+                    getOe().getMusic_ac_kapat().setIcon(music_off);
+                    music_acik_kontrol = false;
+                    if (getOe().oyun_ici_music_clip.isRunning()) {
+                        getOe().oyun_ici_music_clip.stop();
+                    }
+                } else {
+                    Icon music_on = getOe().music_on;
+                    getOe().getMusic_ac_kapat().setIcon(music_on);
+                    music_acik_kontrol = true;
+                    if (!getOe().oyun_ici_music_clip.isRunning()) {
+                        getOe().oyun_ici_music_clip.start();
+
+                    }
+                }
+
+            }
             for (int i = 0; i < getOe().getSatir(); i++) {
                 for (int j = 0; j < getOe().getSutun(); j++) {
 
@@ -213,6 +238,7 @@ public class Actions implements ActionListener {
                     }
                     getOe().getJf_oe().setVisible(false);
                     BaslangicEkranGui bg = new BaslangicEkranGui();
+                    //  bg.action.oe().action.music_acik_kontrol=this.music_acik_kontrol;
                 } else {
                     getGecen_sure().sureyi_baslat();
                 }

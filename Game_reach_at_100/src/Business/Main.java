@@ -8,4 +8,4 @@ public class Main {
         BaslangicEkranGui beg = new BaslangicEkranGui();
     }
 
-} 
+}
