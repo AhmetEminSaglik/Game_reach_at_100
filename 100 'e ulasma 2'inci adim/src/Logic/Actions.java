@@ -257,8 +257,8 @@ public class Actions implements ActionListener {
         getGecen_sure().timer.stop();
         gecen_sure = new Gecen_Sure(this);
         gecen_sure.sureyi_baslat();
+        getOe().getJtextfield_skor().setText("SKOR : ");
         getOe().getKronometre().setText(" Geçen Süre : 00:00:00");// süreyi sıfırlar
-        System.out.println(" getGecen_sure() : " + getGecen_sure());
     }
 
     /*    yonleri_temizle();
