@@ -25,7 +25,7 @@ import javax.swing.JTextArea;
 public class BaslangicEkranGui extends JLayeredPane {
 
     public Clip clip = null;
-    JFrame jf_beg = null; //  --> BaslangicEkraniGui  (..._beg) 
+    JFrame jf_beg = null;
     JFrame jf_oyun_kurallari = null;
     JPanel jp_oyun_kurallari = null;
     JLabel jl = null;
@@ -46,9 +46,7 @@ public class BaslangicEkranGui extends JLayeredPane {
     public BaslangicEkranGui() {
         OyunEkrani oe = new OyunEkrani();
         baslangic_muzigi();
-        this.setLayout(null);/* jpanel'i extends ettiğimizden  (burayı) this kullandık  
-        
-         */
+        this.setLayout(null);
 
         this.add(getBasla());
         this.add(getCikis());
@@ -75,7 +73,7 @@ public class BaslangicEkranGui extends JLayeredPane {
             jl = new JLabel("Başlamak İçin Oyun Boyutunu Seçiniz");
             jl.setForeground(Color.GRAY);
             jl.setBounds(70, 70, 350, 30);
-            Font font = new Font("monospaced", Font.BOLD, 17); // bu classın sadece en sağdakini yazının pixeli olduğunu biliyorum
+            Font font = new Font("monospaced", Font.BOLD, 17);
             jl.setFont(font);
 
         }
@@ -89,7 +87,8 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public JRadioButton[] getJrb() {
         if (jrb[getDegerler()] == null) {
-            Font font = new Font("monospaced", Font.BOLD, 13); // bu classın sadece en sağdakini yazının pixeli olduğunu biliyorum
+            Font font = new Font("monospaced", Font.BOLD, 13);
+
             jrb[getDegerler()] = new JRadioButton((getDegerler() + 5) + " x " + (getDegerler() + 5) + " Bölümü Oyna");
             jrb[getDegerler()].setFont(font);
             jrb[getDegerler()].setBounds(150, 125 + getDegerler() * 50, 200, 30);
@@ -97,7 +96,6 @@ public class BaslangicEkranGui extends JLayeredPane {
             jrb[getDegerler()].setFocusable(false);
             jrb[getDegerler()].addActionListener(action);
 
-//jrb[getDegerler()]
         }
         return jrb;
     }
@@ -116,7 +114,7 @@ public class BaslangicEkranGui extends JLayeredPane {
             Oyuna_geri_don.setCursor(new Cursor(12));
             Oyuna_geri_don.setFocusable(false);
 
-        }//    Oyun_Kurallari.setBounds(150, 510, 200, 40);//
+        }
         return Oyuna_geri_don;
     }
 
@@ -135,14 +133,12 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JButton getBasla() {
         if (basla == null) {
             basla = new JButton("Başla");
-            basla.setBounds(150, 450, 90, 40);
+            basla.setBounds(150, 510, 90, 40);
             basla.setBackground(Color.gray);
             basla.setForeground(Color.WHITE);
             Font font = new Font("", Font.BOLD, 15);
             basla.setFont(font);
-            basla.setCursor(new Cursor(12)); // başla butonuna gelince el işareti oluşur 
-            //basla.setBorderPainted(false); // aynı butonun kenar çizgileri kaldırılır
-            //basla. // butona basınca arka ekran beyaz oluyor onu kaldırma kodunu eklicem buraya 
+            basla.setCursor(new Cursor(12));
             basla.setFocusable(false);
             basla.addActionListener(action);
 
@@ -158,14 +154,14 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JButton getCikis() {
         if (cikis == null) {
             cikis = new JButton("Çıkış");
-            cikis.setBounds(260, 450, 90, 40);
+            cikis.setBounds(260, 510, 90, 40);
             cikis.setBackground(Color.white);
             cikis.setForeground(Color.gray);
             //cikis.setBackground(Color.white);
             Font font = new Font("", Font.BOLD, 15);
             cikis.setFont(font);
             cikis.setCursor(new Cursor(12));
-            //cikis.setFocusPainted(false);
+
             cikis.setFocusable(false);
             cikis.addActionListener(action);
         }
@@ -179,7 +175,7 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JButton getOyun_Kurallari() {
         if (Oyun_Kurallari == null) {
             Oyun_Kurallari = new JButton("OYUN KURALLARI ");
-            Oyun_Kurallari.setBounds(150, 510, 200, 40);//            basla.setBounds(150, 450, 90, 40);
+            Oyun_Kurallari.setBounds(150, 450, 200, 40);
             Oyun_Kurallari.setBackground(Color.yellow);
             Oyun_Kurallari.setForeground(Color.BLACK);
             Font font = new Font("", Font.BOLD, 15);
@@ -246,7 +242,7 @@ public class BaslangicEkranGui extends JLayeredPane {
                     + "-‘Sıfırla’       :Aynı kategoriye baştan başlar. \n"
                     + "-‘Ana Menüye Dön’:Farklı bir bölüm seçebilirsiniz.\n"
                     + "-‘Müzik Aç-Kapa’ :Müziğin sesini açıp kapatılabilir.");
-            OyunKurallari_Aciklamasi.setBounds(30, 20, 450, 400);
+            OyunKurallari_Aciklamasi.setBounds(30, 20, 510, 400);
             OyunKurallari_Aciklamasi.setEditable(false);
             OyunKurallari_Aciklamasi.setBackground(getJp_oyun_kurallari().getBackground());
             OyunKurallari_Aciklamasi.setFocusable(false);

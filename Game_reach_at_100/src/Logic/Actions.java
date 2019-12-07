@@ -40,7 +40,6 @@ public class Actions implements ActionListener {
 
         if (beg != null) {
 
-            // if (baslangic_ekrani_calismaya_devam_ediyor) {
             for (int i = 0; i < 6; i++) {
                 if (e.getSource() == getBeg().getJrb()[i]) {
                     deger = i + 5;
@@ -69,13 +68,13 @@ public class Actions implements ActionListener {
                     }
                     baslangic_ekrani_calismaya_devam_ediyor = false;
                     String title_ek = "";
-                    if (deger % 6 == 0) {//25e  36ya 49a 64e 81e 100e
+                    if (deger % 6 == 0) {
                         title_ek = Integer.toString((deger * deger)) + " 'ya";
                     } else if (deger % 7 == 0) {
                         title_ek = Integer.toString((deger * deger)) + " 'a";
                     } else {
                         title_ek = Integer.toString((deger * deger)) + " 'e";
-   
+
                     }
                     getOe().getJf_oe().setTitle("BİRDEN " + title_ek);
                     getBeg().getJf_beg().setVisible(false);
@@ -103,8 +102,7 @@ public class Actions implements ActionListener {
                         getOe().getJf_oe().setSize(jframe_uzunluk, jframe_yukseklik);
                         getOe().width += jframe_uzunluk;
                         getOe().height += jframe_yukseklik;
-                        //getOe().setSize(getOe(), deger);
-                        //getOe().getJf_oe().setContentPane(getOe());
+
                         getOe().setBounds(0, 0, getOe().width, getOe().height);
 
                         try {
@@ -120,13 +118,10 @@ public class Actions implements ActionListener {
                         }
                     }
 
-                    //  getOe().Oyun_ici_music_cal();
                     getOe().oyunu_getir();
 
-                    //System.out.println("gecen süre : " + getGecen_sure());
                 }
             }
-            //     }// -->  if (baslangic_ekrani_calismaya_devam_ediyor) {
 
             if (e.getSource() == getBeg().getCikis()) {
                 int cevap = JOptionPane.showConfirmDialog(null, "Çıkmak İstediğinize Emin Misiniz?", "ÇIKIŞ UYARISI", 2);
@@ -134,7 +129,6 @@ public class Actions implements ActionListener {
                     System.exit(0);
                 }
 
-                // 0=yes, 1=no, 2=cancel
             }
             if (e.getSource() == getBeg().getOyun_Kurallari()) {
                 getBeg().getJf_oyun_kurallari().setVisible(true);
@@ -144,7 +138,9 @@ public class Actions implements ActionListener {
                 getBeg().getJf_oyun_kurallari().setVisible(false);
             }
         } else {
-
+            if (e.getSource() != getOe().getAyarlar()) {
+                getOe().getJf_ayarlar().setVisible(false);
+            }
             for (int i = 0; i < getOe().getSatir(); i++) {
                 for (int j = 0; j < getOe().getSutun(); j++) {
 
@@ -154,7 +150,7 @@ public class Actions implements ActionListener {
                     }
                 }
             }
-//if(getOe().getJf_ayarlar()get)
+
             if (e.getSource() == getOe().getAyarlar()) {
                 getOe().getJf_ayarlar().setVisible(true);
 
@@ -263,7 +259,7 @@ public class Actions implements ActionListener {
                     }
                     getOe().getJf_oe().setVisible(false);
                     BaslangicEkranGui bg = new BaslangicEkranGui();
-                    //  bg.action.oe().action.music_acik_kontrol=this.music_acik_kontrol;
+
                 } else {
                     getGecen_sure().sureyi_baslat();
                 }
@@ -308,20 +304,14 @@ public class Actions implements ActionListener {
 
         getGecen_sure().timer.stop();
         gecen_sure = new Gecen_Sure(this);
-        // gecen_sure.sureyi_baslat();
+
         getOe().getJtextfield_skor().setText("SKOR : ");
-        getOe().getKronometre().setText(" Geçen Süre : 00:00:00");// süreyi sıfırlar
+        getOe().getKronometre().setText(" Geçen Süre : 00:00:00");
         geriye_atılabilecek_max_adim_sayisi = 10;
+        setAdim_sayisi(0);
+
     }
 
-    /*    yonleri_temizle();
-                                setSatir(i);
-                                setSutun(j);
-                                gidilen_bolge();
-                                setAdim_sayisi(getAdim_sayisi() + 1);
-                                getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
-                                getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
-     */
     public void Geri_adim_at() {
         if (geriye_atılabilecek_max_adim_sayisi > 0) {
             getOe().getGidilen_bolgeler()[getSatir()][getSutun()] = false;
@@ -384,8 +374,6 @@ public class Actions implements ActionListener {
         int kac_tane_yon_var = 0;
 
         if (getSatir() + 3 < getOe().getSatir() && !bolge_gidilmismi_kontrolu(getSatir() + 3, getSutun())) {
-            //JOptionPane.showMessageDialog(null, "(kuzey ilerlenebilecek yon)"
-            //  + "getSatir : " + getSatir() + "  oesatir : " + getOe().getSatir());
             kuzey = true;
             kac_tane_yon_var++;
         }
@@ -441,43 +429,31 @@ public class Actions implements ActionListener {
 
     public void yonleri_boya(Color color) {
         if (kuzey) {
-            //   System.out.println("KUZEY getSatir() + 3 : " + (getSatir() + 3));
-            //  System.out.println("KUZEY getSutun() " + getSutun());
             getOe().getButtonlar()[getSatir() + 3][getSutun()].setBackground(color);
         }
         if (kuzey_dogu) {
-            // System.out.println("KUZEY_DOGU getSatir() + 2 : " + (getSatir() + 2));
-            //  System.out.println("KUZEY_DOGU getSutun() + 2 " + (getSutun() + 2));
             getOe().getButtonlar()[getSatir() + 2][getSutun() + 2].setBackground(color);
         }
         if (dogu) {
-            // System.out.println("DOGU getSatir()  : " + getSatir());
-            //  System.out.println("DOGU getSutun() + 3" + (getSutun() + 3));
             getOe().getButtonlar()[getSatir()][getSutun() + 3].setBackground(color);
         }
         if (guney_dogu) {
-            //  System.out.println("GUNEY_DOGU getSatir() - 2  : " + (getSatir() - 2));
-            //  System.out.println("GUNEY_DOGU getSutun()+2 " + (getSutun() + 2));
             getOe().getButtonlar()[getSatir() - 2][getSutun() + 2].setBackground(color);
         }
         if (guney) {
-            //   System.out.println("GUNEY getSatir() - 3 : " + (getSatir() - 3));
-            //  System.out.println("GUNEYgetSutun() " + getSutun());
+
             getOe().getButtonlar()[getSatir() - 3][getSutun()].setBackground(color);
         }
         if (guney_bati) {
-            //   System.out.println("GUNEY_BATİ getSatir() - 2 : " + (getSatir() - 2));
-            //   System.out.println("GUNEY_BATİgetSutun() -2  " + (getSutun() - 2));
+
             getOe().getButtonlar()[getSatir() - 2][getSutun() - 2].setBackground(color);
         }
         if (bati) {
-            //  System.out.println("BATİ getSatir()  : " + (getSatir()));
-            //  System.out.println("BATİ  getSutun() " + (getSutun() - 3));
+
             getOe().getButtonlar()[getSatir()][getSutun() - 3].setBackground(color);
         }
         if (kuzey_bati) {
-            //  System.out.println("KUZEY_BATİ getSatir() +2 : " + (getSatir() + 2));
-            //  System.out.println("KUZEY_BATİ getSutun() -2 " + (getSutun() - 2));
+
             getOe().getButtonlar()[getSatir() + 2][getSutun() - 2].setBackground(color);
         }
     }
@@ -540,5 +516,3 @@ public class Actions implements ActionListener {
     }
 
 }
-
-//istersen oyunundaki kutu rengi, yazı rengi ve arkaplan rengini oyuncuya bırakabiliriz

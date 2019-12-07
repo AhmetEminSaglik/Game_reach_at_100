@@ -1,6 +1,7 @@
 package Gui;
 
 import Logic.Actions;
+import com.sun.java.swing.plaf.motif.MotifBorders;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -20,13 +21,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.plaf.InternalFrameUI;
 
 public class OyunEkrani extends JPanel {
 
-    private int satir = 0, sutun = 0; // şeklimiz kare olacağı icin bir tanesi bile yeterdi ama 2 tanesini kullandımF
-    JButton[][] buttonlar = new JButton[10][10]; // Sekilli kare ile de değiştirebiliriz ya da naısl isterseniz
+    private int satir = 0, sutun = 0;
+    JButton[][] buttonlar = new JButton[10][10];
     private int sayac_i = 0, sayac_j = 0;
     JFrame jf_oe = null;
     private int JFrame_baslangic_uzunluk = 1360;
@@ -46,7 +49,7 @@ public class OyunEkrani extends JPanel {
     JTextField jtextfield_skor = null;
     JButton sıfırla = null;
     public Clip oyun_ici_music_clip = null;
-    Gecen_Sure gecen_sure = null; // buna bir bak 
+    Gecen_Sure gecen_sure = null;
     JButton geri_adim_at = null;
     JButton music_ac_kapat = null;
     JButton ayarlar = null;
@@ -68,7 +71,6 @@ public class OyunEkrani extends JPanel {
 
     public void oyunu_getir() {
 
-        //    getGecen_sure().sureyi_baslat();
         setBackground(Color.BLACK);
         for (int i = getSatir() - 1; i >= 0; i--) {
             setSayac_i(i);
@@ -135,15 +137,13 @@ public class OyunEkrani extends JPanel {
         if (jf_ayarlar == null) {
             jf_ayarlar = new JFrame();
             jf_ayarlar.setBackground(Color.yellow);
-            //jf_ayarlar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jf_ayarlar.setResizable(false);
             jf_ayarlar.setLocationRelativeTo(this);
             jf_ayarlar.setBounds(0, 0, 300, 200);
-            jf_ayarlar.setLayout(null);
-            jf_ayarlar.setVisible(true);
             jf_ayarlar.add(getJp_ayarlar());
             jf_ayarlar.setLocation(500, 300);
-
+            jf_ayarlar.setUndecorated(true);
+            jf_ayarlar.setLayout(null);
         }
         return jf_ayarlar;
     }
@@ -156,11 +156,13 @@ public class OyunEkrani extends JPanel {
         if (jp_ayarlar == null) {
 
             jp_ayarlar = new JPanel();
-            // jp_ayarlar.setBackground(Color.red);
+
             jp_ayarlar.setBounds(getJf_ayarlar().getBounds());
             jp_ayarlar.setLayout(null);
             jp_ayarlar.add(getMusic_ac_kapat());
             getMusic_ac_kapat().addActionListener(action);
+
+            jp_ayarlar.setBackground(Color.BLACK);
         }
         return jp_ayarlar;
     }
@@ -170,9 +172,10 @@ public class OyunEkrani extends JPanel {
             music_ac_kapat = new JButton();
             Icon ayarlarResim = new ImageIcon(getClass().getResource("music_on.jpg"));
             music_ac_kapat.setIcon(ayarlarResim);
-            music_ac_kapat.setBounds(50, 50, 100, 52);
+            music_ac_kapat.setBounds(100, 70, 100, 52);
             music_ac_kapat.setLayout(null);
             music_ac_kapat.setCursor(new Cursor(12));
+
         }
         return music_ac_kapat;
     }
@@ -335,7 +338,7 @@ public class OyunEkrani extends JPanel {
             kronometre.setBackground(Color.BLACK);
             kronometre.setForeground(Color.WHITE);
             kronometre.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5));
-            //   getButtonlar()[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 4));
+
             kronometre.setEditable(false);
             kronometre.setFont(new Font("monospaced", Font.BOLD, 20));
         }
@@ -426,6 +429,7 @@ public class OyunEkrani extends JPanel {
             ayarlar.setBackground(Color.WHITE);
             sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
             ayarlar.setFocusable(false);
+            ayarlar.setCursor(new Cursor(12));
 
         }
         return ayarlar;
