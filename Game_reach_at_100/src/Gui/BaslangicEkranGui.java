@@ -18,23 +18,30 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 public class BaslangicEkranGui extends JLayeredPane {
 
     public Clip clip = null;
     JFrame jf_beg = null; //  --> BaslangicEkraniGui  (..._beg) 
+    JFrame jf_oyun_kurallari = null;
+    JPanel jp_oyun_kurallari = null;
     JLabel jl = null;
     JRadioButton[] jrb = new JRadioButton[6];
     int degerler;
     JButton basla = null;
     JButton cikis = null;
+    JButton Oyun_Kurallari = null;
     ButtonGroup group = new ButtonGroup();
     Actions action = new Actions();
     private int JFrame_baslangic_x = 50;
     private int JFrame_baslangic_y = 100;
     private int JFrame_baslangic_uzunluk = 500;
     private int JFrame_baslangic_yukseklik = 600;
+    JButton Oyuna_geri_don = null;
+    JTextArea OyunKurallari_Aciklamasi = null;
 
     public BaslangicEkranGui() {
         OyunEkrani oe = new OyunEkrani();
@@ -45,7 +52,7 @@ public class BaslangicEkranGui extends JLayeredPane {
 
         this.add(getBasla());
         this.add(getCikis());
-
+        this.add(getOyun_Kurallari());
         this.add(getJl());
         for (int i = 0; i < 6; i++) {
             setDegerler(i);
@@ -97,6 +104,24 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public void setJrb(JRadioButton[] jrb) {
         this.jrb = jrb;
+    }
+
+    public JButton getOyuna_geri_don() {
+        if (Oyuna_geri_don == null) {
+            Oyuna_geri_don = new JButton("OYUNA GERİ DÖN");
+            Oyuna_geri_don.setBounds(150, 300, 200, 40);
+            Oyuna_geri_don.addActionListener(action);
+            Font font = new Font("", Font.BOLD, 15);
+            Oyuna_geri_don.setFont(font);
+            Oyuna_geri_don.setCursor(new Cursor(12));
+            Oyuna_geri_don.setFocusable(false);
+
+        }//    Oyun_Kurallari.setBounds(150, 510, 200, 40);//
+        return Oyuna_geri_don;
+    }
+
+    public void setOyuna_geri_don(JButton Oyuna_geri_don) {
+        this.Oyuna_geri_don = Oyuna_geri_don;
     }
 
     public int getDegerler() {
@@ -151,6 +176,26 @@ public class BaslangicEkranGui extends JLayeredPane {
         this.cikis = cikis;
     }
 
+    public JButton getOyun_Kurallari() {
+        if (Oyun_Kurallari == null) {
+            Oyun_Kurallari = new JButton("OYUN KURALLARI ");
+            Oyun_Kurallari.setBounds(150, 510, 200, 40);//            basla.setBounds(150, 450, 90, 40);
+            Oyun_Kurallari.setBackground(Color.yellow);
+            Oyun_Kurallari.setForeground(Color.BLACK);
+            Font font = new Font("", Font.BOLD, 15);
+            Oyun_Kurallari.setFont(font);
+            Oyun_Kurallari.setCursor(new Cursor(12));
+            Oyun_Kurallari.setFocusable(false);
+            Oyun_Kurallari.addActionListener(action);
+
+        }
+        return Oyun_Kurallari;
+    }
+
+    public void setOyun_Kurallari(JButton Oyun_Kurallari) {
+        this.Oyun_Kurallari = Oyun_Kurallari;
+    }
+
     public JFrame getJf_beg() {
         if (jf_beg == null) {
             jf_beg = new JFrame("BirDenYüze");
@@ -167,7 +212,57 @@ public class BaslangicEkranGui extends JLayeredPane {
     }
 
     public void setJf_beg(JFrame jf_beg) {
+
         this.jf_beg = jf_beg;
+    }
+
+    public JFrame getJf_oyun_kurallari() {
+        if (jf_oyun_kurallari == null) {
+            jf_oyun_kurallari = new JFrame();
+            jf_oyun_kurallari.setBounds(435, 190, 495, 400);
+            jf_oyun_kurallari.setContentPane(getJp_oyun_kurallari());
+            jf_oyun_kurallari.setUndecorated(true);
+
+        }
+        return jf_oyun_kurallari;
+    }
+
+    public void setJf_oyun_kurallari(JFrame jf_oyun_kurallari) {
+        this.jf_oyun_kurallari = jf_oyun_kurallari;
+    }
+
+    public JTextArea getOyunKurallari_Aciklamasi() {
+        if (OyunKurallari_Aciklamasi == null) {
+            OyunKurallari_Aciklamasi = new JTextArea("asfa");
+            OyunKurallari_Aciklamasi.setBounds(100, 40, 300, 250);
+            OyunKurallari_Aciklamasi.setEditable(false);
+            OyunKurallari_Aciklamasi.setBackground(getJp_oyun_kurallari().getBackground());
+            OyunKurallari_Aciklamasi.setFocusable(false);
+            OyunKurallari_Aciklamasi.setFont(new Font("monospaced", 0, 17));
+            OyunKurallari_Aciklamasi.setForeground(Color.WHITE);
+
+        }
+        return OyunKurallari_Aciklamasi;
+    }
+
+    public void setOyunKurallari_Aciklamasi(JTextArea OyunKurallari_Aciklamasi) {
+        this.OyunKurallari_Aciklamasi = OyunKurallari_Aciklamasi;
+    }
+
+    public JPanel getJp_oyun_kurallari() {
+        if (jp_oyun_kurallari == null) {
+            jp_oyun_kurallari = new JPanel();
+            jp_oyun_kurallari.setBounds(getJf_oyun_kurallari().getBounds());
+            jp_oyun_kurallari.setBackground(Color.gray);
+            jp_oyun_kurallari.add(getOyuna_geri_don());
+            jp_oyun_kurallari.add(getOyunKurallari_Aciklamasi());
+            jp_oyun_kurallari.setLayout(null);
+        }
+        return jp_oyun_kurallari;
+    }
+
+    public void setJp_oyun_kurallari(JPanel jp_oyun_kurallari) {
+        this.jp_oyun_kurallari = jp_oyun_kurallari;
     }
 
     public int getJFrame_baslangic_x() {

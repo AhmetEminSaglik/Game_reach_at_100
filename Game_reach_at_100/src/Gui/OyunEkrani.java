@@ -20,17 +20,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class OyunEkrani extends JPanel {
-    
+
     private int satir = 0, sutun = 0; // şeklimiz kare olacağı icin bir tanesi bile yeterdi ama 2 tanesini kullandımF
     JButton[][] buttonlar = new JButton[10][10]; // Sekilli kare ile de değiştirebiliriz ya da naısl isterseniz
     private int sayac_i = 0, sayac_j = 0;
     JFrame jf_oe = null;
     private int JFrame_baslangic_uzunluk = 1360;
     private int JFrame_baslangic_yukseklik = 720;
-    
+
     Actions action = null;
     private boolean ilk_giris = true;
     private boolean gidilen_bolgeler[][] = new boolean[10][10];
@@ -53,18 +54,19 @@ public class OyunEkrani extends JPanel {
     JPanel jp_ayarlar = null;
     public Icon music_on = new ImageIcon(getClass().getResource("music_on.jpg"));
     public Icon music_off = new ImageIcon(getClass().getResource("music_off.jpg"));
-    
+
+
     public OyunEkrani() {
-        
+
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 gidilen_bolgeler[i][j] = false;
             }
         }
         this.setLayout(null);
-        
+
     }
-    
+
     public void oyunu_getir() {
 
         //    getGecen_sure().sureyi_baslat();
@@ -77,7 +79,7 @@ public class OyunEkrani extends JPanel {
                 int y = 650 - getSutun() * 55;
                 int x_ekseni = x / 2 + (width_btn + 4) * j + 30;
                 int y_ekseni = y / 2 + (height_btn + 4) * (getSatir() - i) + 20;
-                
+
                 if (sagadaki_secenekler_y_ekseni == 0) {
                     sagadaki_secenekler_y_ekseni = y_ekseni;
                 }
@@ -92,9 +94,9 @@ public class OyunEkrani extends JPanel {
                 Font font = new Font("", Font.BOLD, 20);
                 getButtonlar()[i][j].setFont(font);
             }
-            
+
         }
-        
+
         getJf_oe().add(this);
         this.add(getKronometre());
         this.setLayout(null);
@@ -108,28 +110,28 @@ public class OyunEkrani extends JPanel {
         getSıfırla().addActionListener(action);
         this.add(getAyarlar());
         getAyarlar().addActionListener(action);
-        
+
     }
-    
+
     public JFrame getJf_oe() {
         if (jf_oe == null) {
             jf_oe = new JFrame();
             jf_oe.setBackground(Color.BLACK);
             jf_oe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jf_oe.setBounds(0, 0, width, height);
-            
+
             jf_oe.setResizable(false);
             jf_oe.setLocationRelativeTo(null);
             jf_oe.setLayout(null);
-            
+
         }
         return jf_oe;
     }
-    
+
     public void setJf_oe(JFrame jf_oe) {
         this.jf_oe = jf_oe;
     }
-    
+
     public JFrame getJf_ayarlar() {
         if (jf_ayarlar == null) {
             jf_ayarlar = new JFrame();
@@ -142,18 +144,18 @@ public class OyunEkrani extends JPanel {
             jf_ayarlar.setVisible(true);
             jf_ayarlar.add(getJp_ayarlar());
             jf_ayarlar.setLocation(500, 300);
-            
+
         }
         return jf_ayarlar;
     }
-    
+
     public void setJf_ayarlar(JFrame jf_ayarlar) {
         this.jf_ayarlar = jf_ayarlar;
     }
-    
+
     public JPanel getJp_ayarlar() {
         if (jp_ayarlar == null) {
-            
+
             jp_ayarlar = new JPanel();
             // jp_ayarlar.setBackground(Color.red);
             jp_ayarlar.setBounds(getJf_ayarlar().getBounds());
@@ -163,7 +165,7 @@ public class OyunEkrani extends JPanel {
         }
         return jp_ayarlar;
     }
-    
+
     public JButton getMusic_ac_kapat() {
         if (music_ac_kapat == null) {
             music_ac_kapat = new JButton();
@@ -175,107 +177,107 @@ public class OyunEkrani extends JPanel {
         }
         return music_ac_kapat;
     }
-    
+
     public void setMusic_ac_kapat(JButton music_ac_kapat) {
         this.music_ac_kapat = music_ac_kapat;
     }
-    
+
     public void setJp_ayarlar(JPanel jp_ayarlar) {
         this.jp_ayarlar = jp_ayarlar;
     }
-    
+
     public int getSatir() {
         return satir;
     }
-    
+
     public void setSatir(int satir) {
         this.satir = satir;
     }
-    
+
     public int getSutun() {
         return sutun;
     }
-    
+
     public void setSutun(int sutun) {
         this.sutun = sutun;
     }
-    
+
     public int getSayac_i() {
         return sayac_i;
     }
-    
+
     public void setSayac_i(int sayac_i) {
         this.sayac_i = sayac_i;
     }
-    
+
     public int getSayac_j() {
         return sayac_j;
     }
-    
+
     public void setSayac_j(int sayac_j) {
         this.sayac_j = sayac_j;
     }
-    
+
     public JButton[][] getButtonlar() {
         if (buttonlar[getSayac_i()][getSayac_j()] == null) {
             buttonlar[getSayac_i()][getSayac_j()] = new JButton();
             buttonlar[getSayac_i()][getSayac_j()].setLayout(null);
-            
+
         }
         return buttonlar;
     }
-    
+
     public void setButtonlar(JButton[][] buttonlar) {
         this.buttonlar = buttonlar;
     }
-    
+
     public int getJFrame_baslangic_uzunluk() {
         return JFrame_baslangic_uzunluk;
     }
-    
+
     public void setJFrame_baslangic_uzunluk(int JFrame_baslangic_uzunluk) {
         this.JFrame_baslangic_uzunluk = JFrame_baslangic_uzunluk;
     }
-    
+
     public int getJFrame_baslangic_yukseklik() {
         return JFrame_baslangic_yukseklik;
     }
-    
+
     public void setJFrame_baslangic_yukseklik(int JFrame_baslangic_yukseklik) {
         this.JFrame_baslangic_yukseklik = JFrame_baslangic_yukseklik;
     }
-    
+
     public Actions getAction() {
         if (action == null) {
             action = new Actions();
             action.setOe(this);
             action.setBeg(null);
-            
+
         }
         return action;
     }
-    
+
     public void setAction(Actions action) {
         this.action = action;
     }
-    
+
     public boolean isIlk_giris() {
         return ilk_giris;
     }
-    
+
     public void setIlk_giris(boolean ilk_giris) {
         this.ilk_giris = ilk_giris;
     }
-    
+
     public boolean[][] getGidilen_bolgeler() {
-        
+
         return gidilen_bolgeler;
     }
-    
+
     public void setGidilen_bolgeler(boolean[][] gidilen_bolgeler) {
         this.gidilen_bolgeler = gidilen_bolgeler;
     }
-    
+
     public void Alkisla() {
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(new File("src/Gui/oyun_bitmistir.wav"));
@@ -289,9 +291,9 @@ public class OyunEkrani extends JPanel {
         } catch (LineUnavailableException ex) {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void Oyun_ici_music_cal() {
         AudioInputStream stream;
         try {
@@ -300,7 +302,7 @@ public class OyunEkrani extends JPanel {
             oyun_ici_music_clip.open(stream);
             oyun_ici_music_clip.start();
             oyun_ici_music_clip.loop(Clip.LOOP_CONTINUOUSLY);
-            
+
         } catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -308,9 +310,9 @@ public class OyunEkrani extends JPanel {
         } catch (LineUnavailableException ex) {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void bitmeyen_oyun() {
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(new File("src/Gui/oyun_bitmemistir .wav"));
@@ -325,7 +327,7 @@ public class OyunEkrani extends JPanel {
             Logger.getLogger(OyunEkrani.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public JTextField getKronometre() {
         if (kronometre == null) {
             kronometre = new JTextField(" Geçen Süre : 00:00:00 ");
@@ -340,11 +342,11 @@ public class OyunEkrani extends JPanel {
         }
         return kronometre;
     }
-    
+
     public void setKronometre(JTextField kronometre) {
         this.kronometre = kronometre;
     }
-    
+
     public JTextField getJtextfield_skor() {
         if (jtextfield_skor == null) {
             jtextfield_skor = new JTextField("SKOR :   ");
@@ -357,11 +359,11 @@ public class OyunEkrani extends JPanel {
         }
         return jtextfield_skor;
     }
-    
+
     public void setJtextfield_skor(JTextField jtextfield_skor) {
         this.jtextfield_skor = jtextfield_skor;
     }
-    
+
     public JButton getAna_menu() {
         if (Ana_menu == null) {
             Ana_menu = new JButton("ANA MENÜYE DÖN");
@@ -371,16 +373,16 @@ public class OyunEkrani extends JPanel {
             Ana_menu.setFocusable(false);
             sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
             Ana_menu.setFont(new Font("", Font.BOLD, 15));
-            
+
         }
-        
+
         return Ana_menu;
     }
-    
+
     public void setAna_menu(JButton Ana_menu) {
         this.Ana_menu = Ana_menu;
     }
-    
+
     public JButton getSıfırla() {
         if (sıfırla == null) {
             sıfırla = new JButton();
@@ -394,11 +396,11 @@ public class OyunEkrani extends JPanel {
         }
         return sıfırla;
     }
-    
+
     public void setSıfırla(JButton sıfırla) {
         this.sıfırla = sıfırla;
     }
-    
+
     public JButton getGeri_adim_at() {
         if (geri_adim_at == null) {
             geri_adim_at = new JButton();
@@ -412,26 +414,26 @@ public class OyunEkrani extends JPanel {
         }
         return geri_adim_at;
     }
-    
+
     public void setGeri_adim_at(JButton geri_adim_at) {
         this.geri_adim_at = geri_adim_at;
     }
-    
+
     public JButton getAyarlar() {
         if (ayarlar == null) {
-            ayarlar = new JButton(" AYARLAR ");
+            ayarlar = new JButton(" MÜZİK AÇ-KAPA ");
             ayarlar.setFont(new Font("", Font.BOLD, 15));
             ayarlar.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (sagdaki_secenekler_y_ekseni_kere_kullanıldı * 2), 200, 50);
             ayarlar.setBackground(Color.WHITE);
             sagdaki_secenekler_y_ekseni_kere_kullanıldı++;
             ayarlar.setFocusable(false);
-            
+
         }
         return ayarlar;
     }
-    
+
     public void setAyarlar(JButton ayarlar) {
         this.ayarlar = ayarlar;
     }
-    
+
 }

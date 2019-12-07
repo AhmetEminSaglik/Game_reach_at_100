@@ -40,80 +40,83 @@ public class Actions implements ActionListener {
 
         if (beg != null) {
 
-            if (baslangic_ekrani_calismaya_devam_ediyor) {
-                for (int i = 0; i < 6; i++) {
-                    if (e.getSource() == getBeg().getJrb()[i]) {
-                        deger = i + 5;
+            // if (baslangic_ekrani_calismaya_devam_ediyor) {
+            for (int i = 0; i < 6; i++) {
+                if (e.getSource() == getBeg().getJrb()[i]) {
+                    deger = i + 5;
 
-                        getBeg().getJl().setForeground(Color.WHITE);
-                        getBeg().getJl().setText("Artık Oyuna Başlamaya Hazırsınız");
-                        getBeg().getJl().setBounds(85, 70, 350, 30);
-                        getBeg().getBasla().setBackground(Color.WHITE);
-                        getBeg().getBasla().setForeground(Color.GRAY);
-                        getBeg().getCikis().setBackground(Color.gray);
-                        getBeg().getCikis().setForeground(Color.white);
+                    getBeg().getJl().setForeground(Color.WHITE);
+                    getBeg().getJl().setText("Artık Oyuna Başlamaya Hazırsınız");
+                    getBeg().getJl().setBounds(85, 70, 350, 30);
+                    getBeg().getBasla().setBackground(Color.WHITE);
+                    getBeg().getBasla().setForeground(Color.GRAY);
+                    getBeg().getCikis().setBackground(Color.gray);
+                    getBeg().getCikis().setForeground(Color.white);
+
+                }
+            }
+            if (e.getSource() == getBeg().getBasla()) {
+                if (getBeg().getBasla().getBackground() != Color.WHITE) {
+                    JOptionPane.showMessageDialog(null, "Oyuna başlamak için alan büyüklüğünü seçmelisiniz");
+                } else {
+                    if (getBeg().clip.isRunning()) {
+                        getBeg().clip.stop();
+                        getOe().Oyun_ici_music_cal();
 
                     }
-                }
-                if (e.getSource() == getBeg().getBasla()) {
-                    if (getBeg().getBasla().getBackground() != Color.WHITE) {
-                        JOptionPane.showMessageDialog(null, "Oyuna başlamak için alan büyüklüğünü seçmelisiniz");
-                    } else {
-                        if (getBeg().clip.isRunning()) {
-                            getBeg().clip.stop();
-                            getOe().Oyun_ici_music_cal();
+                    if (getBeg().getJf_oyun_kurallari().isVisible()) {
+                        getBeg().getJf_oyun_kurallari().setVisible(false);
+                    }
+                    baslangic_ekrani_calismaya_devam_ediyor = false;
+                    getBeg().getJf_beg().setVisible(false);
+                    oe.setSatir(deger);
+                    oe.setSutun(deger);
+                    int jframe_x_baslangic = 0;
+                    int jframe_y_baslangic = 0;
+                    int jframe_uzunluk = 100;
+                    int jframe_yukseklik = 100;
 
-                        }
-                        baslangic_ekrani_calismaya_devam_ediyor = false;
-                        getBeg().getJf_beg().setVisible(false);
-                        oe.setSatir(deger);
-                        oe.setSutun(deger);
-                        int jframe_x_baslangic = 0;
-                        int jframe_y_baslangic = 0;
-                        int jframe_uzunluk = 100;
-                        int jframe_yukseklik = 100;
+                    oe.getJf_oe().setVisible(true);
+                    oe.getJf_oe().setBackground(Color.BLACK);
 
-                        oe.getJf_oe().setVisible(true);
-                        oe.getJf_oe().setBackground(Color.BLACK);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    boolean jframe_genisliyor = true;
+
+                    while (jframe_genisliyor) {
+
+                        jframe_uzunluk += 63;
+                        jframe_yukseklik += 36;
+                        getOe().getJf_oe().setSize(jframe_uzunluk, jframe_yukseklik);
+                        getOe().width += jframe_uzunluk;
+                        getOe().height += jframe_yukseklik;
+                        //getOe().setSize(getOe(), deger);
+                        //getOe().getJf_oe().setContentPane(getOe());
+                        getOe().setBounds(0, 0, getOe().width, getOe().height);
 
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(15);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        boolean jframe_genisliyor = true;
 
-                        while (jframe_genisliyor) {
+                        oe.getJf_oe().setLocationRelativeTo(null);
+                        if (jframe_uzunluk == getOe().getJFrame_baslangic_uzunluk()) {
 
-                            jframe_uzunluk += 63;
-                            jframe_yukseklik += 36;
-                            getOe().getJf_oe().setSize(jframe_uzunluk, jframe_yukseklik);
-                            getOe().width += jframe_uzunluk;
-                            getOe().height += jframe_yukseklik;
-                            //getOe().setSize(getOe(), deger);
-                            //getOe().getJf_oe().setContentPane(getOe());
-                            getOe().setBounds(0, 0, getOe().width, getOe().height);
-
-                            try {
-                                Thread.sleep(15);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(Actions.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-                            oe.getJf_oe().setLocationRelativeTo(null);
-                            if (jframe_uzunluk == getOe().getJFrame_baslangic_uzunluk()) {
-
-                                jframe_genisliyor = false;
-                            }
+                            jframe_genisliyor = false;
                         }
-
-                        //  getOe().Oyun_ici_music_cal();
-                        getOe().oyunu_getir();
-
-                        //System.out.println("gecen süre : " + getGecen_sure());
                     }
+
+                    //  getOe().Oyun_ici_music_cal();
+                    getOe().oyunu_getir();
+
+                    //System.out.println("gecen süre : " + getGecen_sure());
                 }
             }
+            //     }// -->  if (baslangic_ekrani_calismaya_devam_ediyor) {
 
             if (e.getSource() == getBeg().getCikis()) {
                 int cevap = JOptionPane.showConfirmDialog(null, "Çıkmak İstediğinize Emin Misiniz?", "ÇIKIŞ UYARISI", 2);
@@ -123,10 +126,18 @@ public class Actions implements ActionListener {
 
                 // 0=yes, 1=no, 2=cancel
             }
+            if (e.getSource() == getBeg().getOyun_Kurallari()) {
+                getBeg().getJf_oyun_kurallari().setVisible(true);
+
+            }
+            if (e.getSource() == getBeg().getOyuna_geri_don()) {
+                getBeg().getJf_oyun_kurallari().setVisible(false);
+            }
         } else {
-            getGecen_sure().sureyi_baslat();
+
             for (int i = 0; i < getOe().getSatir(); i++) {
                 for (int j = 0; j < getOe().getSutun(); j++) {
+
                     if (getOe().getButtonlar()[i][j].getBackground() == Color.gray
                             || getOe().getButtonlar()[i][j].getBackground() == anlık_renk) {
                         getOe().getButtonlar()[i][j].setBackground(Color.BLACK);
@@ -161,6 +172,7 @@ public class Actions implements ActionListener {
                 for (int j = 0; j < getOe().getSutun(); j++) {
 
                     if (e.getSource() == getOe().getButtonlar()[i][j]) {
+                        getGecen_sure().sureyi_baslat();
 
                         if (getOe().isIlk_giris()) {
 
@@ -179,6 +191,9 @@ public class Actions implements ActionListener {
 
                             getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
                         } else {
+                            if (!getGecen_sure().timer.isRunning()) {
+                                getGecen_sure().sureyi_baslat();
+                            }
 
                             if (getOe().getButtonlar()[i][j].getBackground() == gidilebilecek_renk) {
 
@@ -283,7 +298,7 @@ public class Actions implements ActionListener {
 
         getGecen_sure().timer.stop();
         gecen_sure = new Gecen_Sure(this);
-        gecen_sure.sureyi_baslat();
+        // gecen_sure.sureyi_baslat();
         getOe().getJtextfield_skor().setText("SKOR : ");
         getOe().getKronometre().setText(" Geçen Süre : 00:00:00");// süreyi sıfırlar
         geriye_atılabilecek_max_adim_sayisi = 10;
