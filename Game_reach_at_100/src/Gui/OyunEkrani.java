@@ -55,7 +55,6 @@ public class OyunEkrani extends JPanel {
     public Icon music_on = new ImageIcon(getClass().getResource("music_on.jpg"));
     public Icon music_off = new ImageIcon(getClass().getResource("music_off.jpg"));
 
-
     public OyunEkrani() {
 
         for (int i = 0; i < 10; i++) {

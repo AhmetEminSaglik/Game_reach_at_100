@@ -68,6 +68,16 @@ public class Actions implements ActionListener {
                         getBeg().getJf_oyun_kurallari().setVisible(false);
                     }
                     baslangic_ekrani_calismaya_devam_ediyor = false;
+                    String title_ek = "";
+                    if (deger % 6 == 0) {//25e  36ya 49a 64e 81e 100e
+                        title_ek = Integer.toString((deger * deger)) + " 'ya";
+                    } else if (deger % 7 == 0) {
+                        title_ek = Integer.toString((deger * deger)) + " 'a";
+                    } else {
+                        title_ek = Integer.toString((deger * deger)) + " 'e";
+   
+                    }
+                    getOe().getJf_oe().setTitle("BİRDEN " + title_ek);
                     getBeg().getJf_beg().setVisible(false);
                     oe.setSatir(deger);
                     oe.setSutun(deger);

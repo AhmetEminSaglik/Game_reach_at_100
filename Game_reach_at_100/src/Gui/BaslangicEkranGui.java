@@ -109,7 +109,7 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JButton getOyuna_geri_don() {
         if (Oyuna_geri_don == null) {
             Oyuna_geri_don = new JButton("OYUNA GERİ DÖN");
-            Oyuna_geri_don.setBounds(150, 300, 200, 40);
+            Oyuna_geri_don.setBounds(150, 420, 200, 40);
             Oyuna_geri_don.addActionListener(action);
             Font font = new Font("", Font.BOLD, 15);
             Oyuna_geri_don.setFont(font);
@@ -198,7 +198,7 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public JFrame getJf_beg() {
         if (jf_beg == null) {
-            jf_beg = new JFrame("BirDenYüze");
+            jf_beg = new JFrame();
             jf_beg.setSize(JFrame_baslangic_uzunluk, JFrame_baslangic_yukseklik);
             jf_beg.setLocation(JFrame_baslangic_x, JFrame_baslangic_y);
             jf_beg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,7 +206,8 @@ public class BaslangicEkranGui extends JLayeredPane {
             jf_beg.setContentPane(this);
             jf_beg.setBackground(Color.BLACK);
             jf_beg.setResizable(false);
-
+            jf_beg.setEnabled(true);
+            jf_beg.setUndecorated(true);
         }
         return jf_beg;
     }
@@ -219,7 +220,7 @@ public class BaslangicEkranGui extends JLayeredPane {
     public JFrame getJf_oyun_kurallari() {
         if (jf_oyun_kurallari == null) {
             jf_oyun_kurallari = new JFrame();
-            jf_oyun_kurallari.setBounds(435, 190, 495, 400);
+            jf_oyun_kurallari.setBounds(436, 130, 494, 530);
             jf_oyun_kurallari.setContentPane(getJp_oyun_kurallari());
             jf_oyun_kurallari.setUndecorated(true);
 
@@ -233,12 +234,23 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public JTextArea getOyunKurallari_Aciklamasi() {
         if (OyunKurallari_Aciklamasi == null) {
-            OyunKurallari_Aciklamasi = new JTextArea("asfa");
-            OyunKurallari_Aciklamasi.setBounds(100, 40, 300, 250);
+            OyunKurallari_Aciklamasi = new JTextArea("Oyun Nasıl Oynanır?:\n\n"
+                    + "1) İstenilen bir kare seçilerek oyuna başlanır.  \n"
+                    + "2) Tüm kareler düz ilerlerken iki kare ve çapraz \n"
+                    + "ilerlerken bir kare atlamak koşuluyla doldurulur.\n"
+                    + "3) Mavi kare bulunulan adımı gösterir.\n"
+                    + "4) Beyaz kareler ilerlenebilecek yönleri gösterir. \n"
+                    + "5) Gri kare yanlış adımı gösterir.\n\n\n"
+                    + "Oyun İçinde Bulunan Butonlar Ne İşe Yarar?:\n\n"
+                    + "-‘Geri Adım At’  :Oyunda 10 geri adim hakkınız vardır.\n"
+                    + "-‘Sıfırla’       :Aynı kategoriye baştan başlar. \n"
+                    + "-‘Ana Menüye Dön’:Farklı bir bölüm seçebilirsiniz.\n"
+                    + "-‘Müzik Aç-Kapa’ :Müziğin sesini açıp kapatılabilir.");
+            OyunKurallari_Aciklamasi.setBounds(30, 20, 450, 400);
             OyunKurallari_Aciklamasi.setEditable(false);
             OyunKurallari_Aciklamasi.setBackground(getJp_oyun_kurallari().getBackground());
             OyunKurallari_Aciklamasi.setFocusable(false);
-            OyunKurallari_Aciklamasi.setFont(new Font("monospaced", 0, 17));
+            OyunKurallari_Aciklamasi.setFont(new Font("monospaced", 0, 14));
             OyunKurallari_Aciklamasi.setForeground(Color.WHITE);
 
         }
@@ -253,7 +265,7 @@ public class BaslangicEkranGui extends JLayeredPane {
         if (jp_oyun_kurallari == null) {
             jp_oyun_kurallari = new JPanel();
             jp_oyun_kurallari.setBounds(getJf_oyun_kurallari().getBounds());
-            jp_oyun_kurallari.setBackground(Color.gray);
+            jp_oyun_kurallari.setBackground(Color.BLACK);
             jp_oyun_kurallari.add(getOyuna_geri_don());
             jp_oyun_kurallari.add(getOyunKurallari_Aciklamasi());
             jp_oyun_kurallari.setLayout(null);
