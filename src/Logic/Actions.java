@@ -89,8 +89,8 @@ public class Actions implements ActionListener {
                     }
                     boolean jframe_genisliyor = true;
 
-                        getOe().width = 100;
-                        getOe().height = 100;
+                    getOe().width = 100;
+                    getOe().height = 100;
                     while (jframe_genisliyor) {
 
                         getOe().width += 63;
@@ -189,6 +189,7 @@ public class Actions implements ActionListener {
                             getOe().getJtextfield_skor().setText("SKOR : " + getAdim_sayisi());
 
                             getOe().getButtonlar()[i][j].setText(Integer.toString(getAdim_sayisi()));
+
                         } else {
                             if (!getGecen_sure().timer.isRunning()) {
                                 getGecen_sure().sureyi_baslat();
@@ -306,7 +307,7 @@ public class Actions implements ActionListener {
         getOe().setIlk_giris(true);
 
         getGecen_sure().timer.stop();
-        gecen_sure = new Gecen_Sure(this);
+        gecen_sure = new Gecen_Sure(this);//sureyi sıfırlar
 
         getOe().getJtextfield_skor().setText("SKOR : ");
         getOe().getKronometre().setText(" Geçen Süre : 00:00:00");
