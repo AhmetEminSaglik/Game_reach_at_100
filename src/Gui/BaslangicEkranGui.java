@@ -36,8 +36,7 @@ public class BaslangicEkranGui extends JLayeredPane {
     JButton Oyun_Kurallari = null;
     ButtonGroup group = new ButtonGroup();
     Actions action = new Actions();
-    private int JFrame_baslangic_x = 50;
-    private int JFrame_baslangic_y = 100;
+
     private int JFrame_baslangic_uzunluk = 500;
     private int JFrame_baslangic_yukseklik = 600;
     JButton Oyuna_geri_don = null;
@@ -196,7 +195,7 @@ public class BaslangicEkranGui extends JLayeredPane {
         if (jf_beg == null) {
             jf_beg = new JFrame();
             jf_beg.setSize(JFrame_baslangic_uzunluk, JFrame_baslangic_yukseklik);
-            jf_beg.setLocation(JFrame_baslangic_x, JFrame_baslangic_y);
+
             jf_beg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jf_beg.setLocationRelativeTo(null);
             jf_beg.setContentPane(this);
@@ -243,7 +242,7 @@ public class BaslangicEkranGui extends JLayeredPane {
                     + "-‘Ana Menüye Dön’:Farklı bir bölüm seçebilirsiniz.\n"
                     + "-‘Müzik Aç-Kapa’ :Müziğin sesini açıp kapatılabilir.");
             OyunKurallari_Aciklamasi.setBounds(30, 20, 510, 400);
-            OyunKurallari_Aciklamasi.setEditable(false);
+            //  OyunKurallari_Aciklamasi.setEditable(false);
             OyunKurallari_Aciklamasi.setBackground(getJp_oyun_kurallari().getBackground());
             OyunKurallari_Aciklamasi.setFocusable(false);
             OyunKurallari_Aciklamasi.setFont(new Font("monospaced", 0, 14));
@@ -262,8 +261,10 @@ public class BaslangicEkranGui extends JLayeredPane {
             jp_oyun_kurallari = new JPanel();
             jp_oyun_kurallari.setBounds(getJf_oyun_kurallari().getBounds());
             jp_oyun_kurallari.setBackground(Color.BLACK);
+
             jp_oyun_kurallari.add(getOyuna_geri_don());
             jp_oyun_kurallari.add(getOyunKurallari_Aciklamasi());
+
             jp_oyun_kurallari.setLayout(null);
         }
         return jp_oyun_kurallari;
@@ -271,22 +272,6 @@ public class BaslangicEkranGui extends JLayeredPane {
 
     public void setJp_oyun_kurallari(JPanel jp_oyun_kurallari) {
         this.jp_oyun_kurallari = jp_oyun_kurallari;
-    }
-
-    public int getJFrame_baslangic_x() {
-        return JFrame_baslangic_x;
-    }
-
-    public void setJFrame_baslangic_x(int JFrame_baslangic_x) {
-        this.JFrame_baslangic_x = JFrame_baslangic_x;
-    }
-
-    public int getJFrame_baslangic_y() {
-        return JFrame_baslangic_y;
-    }
-
-    public void setJFrame_baslangic_y(int JFrame_baslangic_y) {
-        this.JFrame_baslangic_y = JFrame_baslangic_y;
     }
 
     public int getJFrame_baslangic_uzunluk() {

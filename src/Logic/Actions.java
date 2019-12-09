@@ -1,3 +1,4 @@
+
 package Logic;
 
 import Gui.BaslangicEkranGui;
@@ -21,7 +22,7 @@ public class Actions implements ActionListener {
     OyunEkrani oe = new OyunEkrani();
     Gecen_Sure gecen_sure = null;
     int geriye_atılabilecek_max_adim_sayisi = 10;
-    private int adim_sayisi = 0, satir = 0, sutun = 0;
+    private int adim_sayisi = 0, satir, sutun;
     boolean kuzey = false, kuzey_dogu = false,
             dogu = false,
             guney_dogu = false,
@@ -32,13 +33,11 @@ public class Actions implements ActionListener {
     Color anlık_renk = Color.BLUE;
     Color gidilebilecek_renk = Color.WHITE;
     boolean music_acik_kontrol = true;
-    final int adim_i = 0;
-    final int adim_j = 0;
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (beg != null) {
+        if (getBeg() != null) {
 
             for (int i = 0; i < 6; i++) {
                 if (e.getSource() == getBeg().getJrb()[i]) {
@@ -118,9 +117,8 @@ public class Actions implements ActionListener {
                         }
                     }
 
-                    getOe().oyunu_getir();
-
                 }
+                getOe().oyunu_getir();
             }
 
             if (e.getSource() == getBeg().getCikis()) {
@@ -227,9 +225,11 @@ public class Actions implements ActionListener {
                                         getOe().bitmeyen_oyun();
                                         JOptionPane.showMessageDialog(null, "Gidilecek yolunuz kalmamıştır. \n" + getOe().getKronometre().getText() + "\nSkorunuz : " + getAdim_sayisi());
                                     }
-                                    getOe().getJf_oe().setVisible(false);
-                                    BaslangicEkranGui bg = new BaslangicEkranGui();
-
+                                    /*   getOe().getJf_oe().setVisible(false);
+                                   BaslangicEkranGui bg = new BaslangicEkranGui();*/
+                                    Oyun_Sıfırlama();
+                                    getOe().Oyun_ici_music_cal();
+                                    //    getOe().oyun_ici_music_clip.start();
                                     return;
                                 }
 
@@ -261,7 +261,9 @@ public class Actions implements ActionListener {
                     BaslangicEkranGui bg = new BaslangicEkranGui();
 
                 } else {
-                    getGecen_sure().sureyi_baslat();
+                    if (!getOe().isIlk_giris()) {
+                        getGecen_sure().sureyi_baslat();
+                    }
                 }
             } else if (e.getSource() == getOe().getSıfırla()) {
                 getGecen_sure().sureyi_durdur();
@@ -273,7 +275,9 @@ public class Actions implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Oyunu Sıfırlamak için en az bir adım atmış olmanız gerekiyor");
                     }
                 } else {
-                    getGecen_sure().sureyi_baslat();
+                    if (!getOe().isIlk_giris()) {
+                        getGecen_sure().sureyi_baslat();
+                    }
                 }
             }
             if (e.getSource() == getOe().getGeri_adim_at()) {
@@ -283,7 +287,11 @@ public class Actions implements ActionListener {
                 } else {
                     getGecen_sure().sureyi_durdur();
                     JOptionPane.showMessageDialog(null, "Zaten En düşük Adımdasınız Başlangic Yerinizi Değiştirmek İstiyorsanız Oyunu Sıfırlayın");
-                    getGecen_sure().sureyi_baslat();
+                    if (!getOe().isIlk_giris()) {
+                        if (!getOe().isIlk_giris()) {
+                            getGecen_sure().sureyi_baslat();
+                        }
+                    }
                 }
             }
 

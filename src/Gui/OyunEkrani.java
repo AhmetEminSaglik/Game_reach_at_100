@@ -81,11 +81,11 @@ public class OyunEkrani extends JPanel {
                 int x_ekseni = x / 2 + (width_btn + 4) * j + 30;
                 int y_ekseni = y / 2 + (height_btn + 4) * (getSatir() - i) + 20;
 
-                if (sagadaki_secenekler_y_ekseni == 0) {
-                    sagadaki_secenekler_y_ekseni = y_ekseni;
-                }
+                /*     if (sagadaki_secenekler_y_ekseni == 0) { // niye yazdım bilmiyorum ama gereksiz görünüyor şuanlık
+             sagadaki_secenekler_y_ekseni = y_ekseni;
+                }*/
                 getButtonlar()[i][j].setBounds(x_ekseni, y_ekseni, width_btn, height_btn);
-                this.add(getButtonlar()[i][j], new Integer(2));
+                this.add(getButtonlar()[i][j]);
                 getButtonlar()[i][j].addActionListener(getAction());
                 getButtonlar()[i][j].setBackground(Color.BLACK);
                 getButtonlar()[i][j].setCursor(new Cursor(12));
@@ -106,11 +106,11 @@ public class OyunEkrani extends JPanel {
         this.add(getGeri_adim_at());
         this.add(getSıfırla());
         this.add(getAyarlar());
-        getGeri_adim_at().addActionListener(action);
-        getAna_menu().addActionListener(action);
-        getSıfırla().addActionListener(action);
+        getGeri_adim_at().addActionListener(getAction());
+        getAna_menu().addActionListener(getAction());
+        getSıfırla().addActionListener(getAction());
         this.add(getAyarlar());
-        getAyarlar().addActionListener(action);
+        getAyarlar().addActionListener(getAction());
 
     }
 
@@ -160,7 +160,7 @@ public class OyunEkrani extends JPanel {
             jp_ayarlar.setBounds(getJf_ayarlar().getBounds());
             jp_ayarlar.setLayout(null);
             jp_ayarlar.add(getMusic_ac_kapat());
-            getMusic_ac_kapat().addActionListener(action);
+            getMusic_ac_kapat().addActionListener(getAction());
 
             jp_ayarlar.setBackground(Color.BLACK);
         }
@@ -352,7 +352,7 @@ public class OyunEkrani extends JPanel {
     public JTextField getJtextfield_skor() {
         if (jtextfield_skor == null) {
             jtextfield_skor = new JTextField("SKOR :   ");
-            jtextfield_skor.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 50 * (sagdaki_secenekler_y_ekseni_kere_kullanıldı * 2), 200, 50);
+            jtextfield_skor.setBounds(sagdaki_secenekler_x_ekseni, sagadaki_secenekler_y_ekseni + 100 * sagdaki_secenekler_y_ekseni_kere_kullanıldı, 200, 50);
             jtextfield_skor.setFocusable(false);
             jtextfield_skor.setBackground(Color.WHITE);
             jtextfield_skor.setEditable(false);
