@@ -1,4 +1,3 @@
-
 package Logic;
 
 import Gui.BaslangicEkranGui;
@@ -79,10 +78,6 @@ public class Actions implements ActionListener {
                     getBeg().getJf_beg().setVisible(false);
                     oe.setSatir(deger);
                     oe.setSutun(deger);
-                    int jframe_x_baslangic = 0;
-                    int jframe_y_baslangic = 0;
-                    int jframe_uzunluk = 100;
-                    int jframe_yukseklik = 100;
 
                     oe.getJf_oe().setVisible(true);
                     oe.getJf_oe().setBackground(Color.BLACK);
@@ -94,13 +89,13 @@ public class Actions implements ActionListener {
                     }
                     boolean jframe_genisliyor = true;
 
+                        getOe().width = 100;
+                        getOe().height = 100;
                     while (jframe_genisliyor) {
 
-                        jframe_uzunluk += 63;
-                        jframe_yukseklik += 36;
-                        getOe().getJf_oe().setSize(jframe_uzunluk, jframe_yukseklik);
-                        getOe().width += jframe_uzunluk;
-                        getOe().height += jframe_yukseklik;
+                        getOe().width += 63;
+                        getOe().height += 36;
+                        getOe().getJf_oe().setSize(getOe().width, getOe().height);
 
                         getOe().setBounds(0, 0, getOe().width, getOe().height);
 
@@ -111,7 +106,7 @@ public class Actions implements ActionListener {
                         }
 
                         oe.getJf_oe().setLocationRelativeTo(null);
-                        if (jframe_uzunluk == getOe().getJFrame_baslangic_uzunluk()) {
+                        if (getOe().width == getOe().getJFrame_baslangic_uzunluk()) {
 
                             jframe_genisliyor = false;
                         }
